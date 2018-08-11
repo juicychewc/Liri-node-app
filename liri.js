@@ -22,7 +22,7 @@ if (command == "spotify-this-song") {
 }
 
 if (command == "movie-this") {
-    movieThis(movieSearch);
+    movieThis(search);
 }
 
 if (command == "do-what-it-says") {
@@ -31,12 +31,12 @@ if (command == "do-what-it-says") {
 
 function myTweets() {
     var params = {
-        screenName: "realDonaldTrump"
+        screen_name: 'realDonaldTrump',
+        count: 20
     }
-
     client.get('statuses/user_timeline', params, function (error, tweets, response) {
-        if (!error) {
-            for (i = 0; i < tweets.length && i < 20; i++) {
+        if (!error && response.statusCode === 200) {
+            for (i = 0; i < tweets.length; i++) {
                 console.log(tweets[i].text);
                 console.log("tweeted on " + tweets[i].created_at);
                 fs.appendFile(logFile, "n\ \n" + tweets[i].text + "\n tweeted on " + tweets[i].created_at + "n\ \n", function (err) {
